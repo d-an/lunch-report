@@ -11,12 +11,11 @@ url_base = "https://developers.zomato.com/api/v2.1/"
 header = {"User-agent": "curl/7.43.0", "Accept": "application/json", "user_key": user_key}
 
 ids = {"let's meat": 18494543,
-       # "pizza u staré pece": 16512835 ,
        "olše": 16513849,
        "u vodoucha": 16506331,
        "sonora": 16506702,
        "incruenti": 18355481,
-       # "u vodárny": 16506550,
+       "u vodárny": 16506550,
        "hospůdka v ateliéru": 16506560,
        "nominanza": 16513818,
        "vinohradský pivovar": 16507624}
@@ -38,15 +37,17 @@ def menu(res_id):
     return dishes
 
 
-# menus will go to this dictionary:
+# menus will go into this dictionary:
 data = dict()
 
-for (k, v) in ids.items():
+broken = []
+
+for (name, id) in ids.items():
     time.sleep(1)
     try:
-        data[k] = menu(v)
+        data[name] = menu(id)
     except Exception:
-        pass
+        broken.append(name)
 
 
 # restaurants not available through zomato:
@@ -59,7 +60,6 @@ others = {'Infinity': p.Infinity,
           'Happy Bean': p.HappyBean
           }
 
-broken = []
 
 for name, parser in others.items():
     try:
