@@ -57,7 +57,8 @@ others = {'Infinity': p.Infinity,
           'Prasatka': p.Prasatka,
           'Fratello': p.Fratello,
           'Bila vrana': p.Vrana,
-          'Happy Bean': p.HappyBean
+          'Happy Bean': p.HappyBean,
+          'Roma Uno': p.RomaUno
           }
 
 
@@ -74,6 +75,7 @@ poradi = ["incruenti",
           "Fratello",
           "let's meat",
           "Infinity",
+          "Roma Uno",
           "Bila vrana",
           "Prasatka",
           "sonora",

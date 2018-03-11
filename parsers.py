@@ -8,7 +8,8 @@ res_links = {'Infinity': 'http://www.infinitybar.cz/restaurace/poledni-menu',
              'Prasatka': 'http://www.triprasatka.cz/home-page/lunch/',
              'Fratello': 'http://www.ristorantefratello.cz/poledni-menu/',
              'Vrana': 'http://www.bilavrana.com/cs/poledni-menu',
-             'Happy Bean': 'http://www.happybean.cz/#dennimenu'}
+             'Happy Bean': 'http://www.happybean.cz/#dennimenu',
+             'Roma Uno': 'https://romauno.cz/cs/obedove-menu'}
 
 
 class Restaurant:
@@ -125,4 +126,16 @@ class HappyBean(Restaurant):
         # for some reason there can be duplicities:
         todays_menu = list(set(todays_menu))
         self.name_price_pairs = [(food, '') for food in todays_menu]
+        return self
+
+
+class RomaUno(Restaurant):
+    def get_menu(self):
+        now = str(datetime.now().weekday() + 1)
+        menu = self.page.find_all('div', attrs={'class': 'daily-slide', 'data-slide': now})[0]
+        names = menu.find_all('div', class_='food-name')
+        names = [name.contents[0] for name in names]
+        prices = menu.find_all('div', class_='food-price')
+        prices = [price.contents[0] for price in prices]
+        self.name_price_pairs = list(zip(names, prices))
         return self
