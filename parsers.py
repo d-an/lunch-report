@@ -131,8 +131,9 @@ class HappyBean(Restaurant):
 
 class RomaUno(Restaurant):
     def get_menu(self):
-        now = str(datetime.now().weekday() + 1)
-        menu = self.page.find_all('div', attrs={'class': 'daily-slide', 'data-slide': now})[0]
+        # now = str(datetime.now().weekday() + 1)
+        # menu = self.page.find_all('div', attrs={'class': 'daily-slide', 'data-slide': now})[0]
+        menu = self.page.find_all('div', class_='daily-slide today')[0]
         names = menu.find_all('div', class_='food-name')
         names = [name.contents[0] for name in names]
         prices = menu.find_all('div', class_='food-price')

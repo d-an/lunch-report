@@ -18,7 +18,8 @@ ids = {"let's meat": 18494543,
        "u vodárny": 16506550,
        "hospůdka v ateliéru": 16506560,
        "nominanza": 16513818,
-       "vinohradský pivovar": 16507624}
+       "vinohradský pivovar": 16507624,
+       "prasatka": 18325358}
 
 
 def ask(query):
@@ -54,7 +55,7 @@ for (name, id) in ids.items():
 import parsers as p
 
 others = {'Infinity': p.Infinity,
-          'Prasatka': p.Prasatka,
+          # 'Prasatka': p.Prasatka,
           'Fratello': p.Fratello,
           'Bila vrana': p.Vrana,
           'Happy Bean': p.HappyBean,
@@ -77,7 +78,7 @@ poradi = ["incruenti",
           "Infinity",
           "Roma Uno",
           "Bila vrana",
-          "Prasatka",
+          "prasatka",
           "sonora",
           "olše",
           "u vodoucha",
@@ -101,7 +102,7 @@ with open('lunch_report.txt', 'wt') as report:
         report.write('\n\n')
         for dish in dishes:
             try:
-                report.write('\t'.join(dish))
+                report.write(' '.join(dish))
                 report.write('\n')
             except Exception:
                 report.write('...\n')
