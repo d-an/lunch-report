@@ -91,9 +91,13 @@ class Fratello(Restaurant):
 
 class Vrana(Restaurant):
     def get_menu(self):
-        tds = self.page.find_all('table')[0].find_all('td')
-        tds = [td.text for td in tds if td.text]
-        self.name_price_pairs = [(td, '') for td in tds]
+        menus = self.page.find_all('table', class_="jidelak_normal napojak denni")
+        dates = [menu.find('tr') for menu in menus]
+        weekday = datetime.now().weekday()
+        weekday = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek'][weekday]
+        menu = [menu for day, menu in zip(dates, menus) if weekday in day.text][0]
+        foods = menu.find_all('tr')[2:]
+        self.name_price_pairs = [[item.text for item in food.find_all('td')] for food in foods]
         return self
 
 
