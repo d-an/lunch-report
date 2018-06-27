@@ -7,7 +7,7 @@ from datetime import datetime
 res_links = {'Infinity': 'http://www.infinitybar.cz/restaurace/poledni-menu',
              'Prasatka': 'http://www.triprasatka.cz/home-page/lunch/',
              'Fratello': 'http://www.ristorantefratello.cz/poledni-menu/',
-             'Vrana': 'http://www.bilavrana.com/cs/poledni-menu',
+             'Bila vrana': 'http://www.bilavrana.com/cs/poledni-menu',
              'Happy Bean': 'http://www.happybean.cz/denni-menu/',
              'Roma Uno': 'https://romauno.cz/cs/obedove-menu'}
 
