@@ -27,12 +27,13 @@ def ask(query):
     return res.json()
 
 
-def menu(res_id):
+def menu(res_id, remove_empty_prices=True):
     a = ask('dailymenu?res_id={}'.format(res_id))
     dishes = a['daily_menus'][0]['daily_menu']['dishes']
     dishes = [(dish['dish']['name'], dish['dish']['price']) for dish in dishes]
     # filter out empty price tags:
-    dishes = [(name, price) for (name, price) in dishes if price]
+    if remove_empty_prices:
+        dishes = [(name, price) for (name, price) in dishes if price]
     # modify names and prices:
     dishes = [(name.strip(), price.split('\xa0')[0]) for (name, price) in dishes]
     return dishes
@@ -46,7 +47,10 @@ broken = []
 for (name, id) in ids.items():
     time.sleep(1)
     try:
-        data[name] = menu(id)
+        if name == 'prasatka':
+            data[name] = menu(id, remove_empty_prices=False)
+        else:
+            data[name] = menu(id, remove_empty_prices=True)
     except Exception:
         broken.append(name)
 
