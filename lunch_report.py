@@ -63,7 +63,8 @@ others = {'Infinity': p.Infinity,
           'Fratello': p.Fratello,
           'Bila vrana': p.Vrana,
           'Happy Bean': p.HappyBean,
-          'Roma Uno': p.RomaUno
+          'Roma Uno': p.RomaUno,
+          'La Farma': p.LaFarma
           }
 
 
@@ -76,6 +77,7 @@ for name, parser in others.items():
 # sort the restaurants:
 poradi = ["incruenti",
           "Happy Bean",
+          "La Farma",
           "nominanza",
           "Fratello",
           "let's meat",

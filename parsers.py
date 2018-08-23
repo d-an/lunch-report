@@ -9,7 +9,9 @@ res_links = {'Infinity': 'http://www.infinitybar.cz/restaurace/poledni-menu',
              'Fratello': 'http://www.ristorantefratello.cz/poledni-menu/',
              'Bila vrana': 'http://www.bilavrana.com/cs/poledni-menu',
              'Happy Bean': 'http://www.happybean.cz/denni-menu/',
-             'Roma Uno': 'https://romauno.cz/cs/obedove-menu'}
+             'Roma Uno': 'https://romauno.cz/cs/obedove-menu',
+             'La Farma': 'https://lafarma.cz/denni-nabidka/'
+             }
 
 
 class Restaurant:
@@ -133,6 +135,37 @@ class HappyBean(Restaurant):
         return self
 
 
+class LaFarma(Restaurant):
+    def get_menu(self):
+        div, rest = self.page.find_all('div', class_='menu_content_subtitle')
+        items = div.find_all('p')
+        items = [item.text for item in items]
+        days = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek']
+        days_found = []
+        delimiters = iter(days)
+        delimiter = next(delimiters)
+        menus = Foods()
+        items = iter(items)
+        while True:
+            try:
+                item = next(items)
+                if delimiter in item:
+                    days_found.append(delimiter)
+                    menus.add_day()
+                    delimiter = next(delimiters)
+                else:
+                    menus.add_food(item)
+            except StopIteration:
+                break
+        # which menu i want (in case of a bank holiday):
+        weekday = datetime.now().weekday()
+        this_day = days[weekday]
+        position = days_found.index(this_day)
+        menu = menus.foods[position]
+        self.name_price_pairs = [(menu[0], '')]
+        return self
+
+
 class RomaUno(Restaurant):
     def get_menu(self):
         # now = str(datetime.now().weekday() + 1)
@@ -144,3 +177,6 @@ class RomaUno(Restaurant):
         prices = [price.contents[0] for price in prices]
         self.name_price_pairs = list(zip(names, prices))
         return self
+
+# div.menu_content_subtitle ... druhy z nich obsahuje <p> s dny a jidly
+# https://lafarma.cz/denni-nabidka/
