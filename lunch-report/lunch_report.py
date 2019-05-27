@@ -1,11 +1,10 @@
 from collections import OrderedDict
 from requests import get
 import time
-from pyperclip import copy
+import os
 
-# user key: 
-with open('../key.txt', 'rt') as f:
-    user_key = f.read()
+# user key:
+user_key = os.environ['user_key']
 
 url_base = "https://developers.zomato.com/api/v2.1/"
 header = {"User-agent": "curl/7.43.0", "Accept": "application/json", "user_key": user_key}
@@ -116,6 +115,3 @@ with open('lunch_report.txt', 'wt') as report:
     for item in broken:
         report.write(item + '\n')
 
-# results to clipboard:
-with open('lunch_report.txt', 'rt') as report:
-    copy(report.read())
