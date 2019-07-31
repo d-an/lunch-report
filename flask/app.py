@@ -9,7 +9,7 @@ def hello_world():
 
 @app.route('/')
 def show_menu():
-    with open('lunch-report/lunch_report.txt', 'rt') as f:
+    with open('lunch-report/lunch_report.html', 'rt') as f:
         menu = f.read()
     return menu
 
