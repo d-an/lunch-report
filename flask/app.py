@@ -9,9 +9,9 @@ def hello_world():
 
 @app.route('/')
 def show_menu():
-    with open('lunch-report/lunch_report.html', 'rt') as f:
+    with open('lunch_report/lunch_report.html', 'rt') as f:
         menu = f.read()
     return menu
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')

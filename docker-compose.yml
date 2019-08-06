@@ -6,7 +6,7 @@ services:
     env_file: user_key.env
     volumes:
       - ./flask:/home/lunch/flask
-      - ./lunch-report:/home/lunch/lunch-report
+      - ./lunch_report:/home/lunch/lunch_report
     ports:
       - "5000:5000"
     container_name: lunch

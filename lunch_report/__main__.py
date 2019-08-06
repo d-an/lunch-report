@@ -1,7 +1,10 @@
+import lunch_report.parsers as p
 from collections import OrderedDict
 from requests import get
 import time
 import os
+from jinja2 import Template
+
 
 # user key:
 user_key = os.environ['user_key']
@@ -55,7 +58,6 @@ for (name, id) in ids.items():
 
 
 # restaurants not available through zomato:
-import parsers as p
 
 others = {'Infinity': p.Infinity,
           # 'Prasatka': p.Prasatka,
@@ -100,18 +102,24 @@ data_ordered = OrderedDict()
 for item in poradi:
     data_ordered[item] = data[item]
 
-# vypis nekam data:
-with open('lunch_report.txt', 'wt') as report:
-    for (place, dishes) in data_ordered.items():
-        report.write(place.upper())
-        report.write('\n\n')
-        for dish in dishes:
-            try:
-                report.write(' '.join(dish))
-                report.write('\n')
-            except Exception:
-                report.write('...\n')
-        report.write('\n\n\n\n')
-    for item in broken:
-        report.write(item + '\n')
+with open('lunch_report/lunch_report.template', 'rt') as f:
+    template = Template(f.read())
+
+with open('lunch_report/lunch_report.html', 'wt') as f:
+    f.write(template.render(data_ordered=data_ordered))
+
+# # vypis nekam data:
+# with open('lunch_report.txt', 'wt') as report:
+#     for (place, dishes) in data_ordered.items():
+#         report.write(place.upper())
+#         report.write('\n\n')
+#         for dish in dishes:
+#             try:
+#                 report.write(' '.join(dish))
+#                 report.write('\n')
+#             except Exception:
+#                 report.write('...\n')
+#         report.write('\n\n\n\n')
+#     for item in broken:
+#         report.write(item + '\n')
 
