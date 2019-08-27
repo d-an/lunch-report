@@ -1,25 +1,12 @@
-# -*- coding: utf-8 -*-
-
-from requests import get
-from bs4 import BeautifulSoup
+from lunch_report.parsing import Restaurant, Foods
 from datetime import datetime
-
-res_links = {'Infinity': 'http://www.infinitybar.cz/restaurace/poledni-menu',
-             'Prasatka': 'http://www.triprasatka.cz/home-page/lunch/',
-             'Fratello': 'http://www.ristorantefratello.cz/poledni-menu/',
-             'Bila vrana': 'http://www.bilavrana.com/cs/poledni-menu',
-             'Happy Bean': 'http://www.happybean.cz/denni-menu/',
-             'Roma Uno': 'https://romauno.cz/cs/obedove-menu',
-             'La Farma': 'https://lafarma.cz/denni-nabidka/'
-             }
+from yaml import safe_load
 
 
-class Restaurant:
-    def __init__(self, link):
-        self.page = BeautifulSoup(get(link).content.decode('utf-8'), "lxml")
-
-    def get_menu(self):
-        pass
+with open('lunch_report/config.yml', 'rt') as f:
+    flora = safe_load(f)['flora']
+    res_links = flora['url']
+    ids = flora['id']
 
 
 class Infinity(Restaurant):
@@ -50,19 +37,6 @@ class Prasatka(Restaurant):
             prices = ['' for item in names]
         self.name_price_pairs = list(zip(names, prices))
         return self
-
-
-# a class useful for Fratello:           
-class Foods:
-    def __init__(self):
-        self.foods = []
-
-    def add_day(self):
-        self.foods.append([])
-
-    def add_food(self, food):
-        if self.foods:
-            self.foods[-1].append(food)
 
 
 class Fratello(Restaurant):
@@ -178,5 +152,3 @@ class RomaUno(Restaurant):
         self.name_price_pairs = list(zip(names, prices))
         return self
 
-# div.menu_content_subtitle ... druhy z nich obsahuje <p> s dny a jidly
-# https://lafarma.cz/denni-nabidka/

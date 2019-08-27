@@ -1,0 +1,20 @@
+flora:
+  url:
+    'Infinity': http://www.infinitybar.cz/restaurace/poledni-menu
+    'Prasatka': http://www.triprasatka.cz/home-page/lunch/
+    'Fratello': http://www.ristorantefratello.cz/poledni-menu/
+    'Bila vrana': http://www.bilavrana.com/cs/poledni-menu
+    'Happy Bean': http://www.happybean.cz/denni-menu/
+    'Roma Uno': https://romauno.cz/cs/obedove-menu'
+    'La Farma': https://lafarma.cz/denni-nabidka/
+  id:
+    "let's meat": 18494543
+    "olše": 16513849
+    "u vodoucha": 16506331
+    "sonora": 16506702
+    "incruenti": 18355481
+    "u vodárny": 16506550
+    "hospůdka v ateliéru": 16506560
+    "nominanza": 16513818
+    "vinohradský pivovar": 16507624
+    "prasatka": 18325358

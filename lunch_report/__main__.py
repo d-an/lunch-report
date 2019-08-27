@@ -1,4 +1,4 @@
-import lunch_report.parsers as p
+import lunch_report.flora as p
 from collections import OrderedDict
 from requests import get
 import time
@@ -11,17 +11,6 @@ user_key = os.environ['user_key']
 
 url_base = "https://developers.zomato.com/api/v2.1/"
 header = {"User-agent": "curl/7.43.0", "Accept": "application/json", "user_key": user_key}
-
-ids = {"let's meat": 18494543,
-       "olše": 16513849,
-       "u vodoucha": 16506331,
-       "sonora": 16506702,
-       "incruenti": 18355481,
-       "u vodárny": 16506550,
-       "hospůdka v ateliéru": 16506560,
-       "nominanza": 16513818,
-       "vinohradský pivovar": 16507624,
-       "prasatka": 18325358}
 
 
 def ask(query):
@@ -46,7 +35,7 @@ data = dict()
 
 broken = []
 
-for (name, id) in ids.items():
+for (name, id) in p.ids.items():
     time.sleep(1)
     try:
         if name == 'prasatka':
@@ -107,19 +96,3 @@ with open('lunch_report/lunch_report.template', 'rt') as f:
 
 with open('lunch_report/lunch_report.html', 'wt') as f:
     f.write(template.render(data_ordered=data_ordered))
-
-# # vypis nekam data:
-# with open('lunch_report.txt', 'wt') as report:
-#     for (place, dishes) in data_ordered.items():
-#         report.write(place.upper())
-#         report.write('\n\n')
-#         for dish in dishes:
-#             try:
-#                 report.write(' '.join(dish))
-#                 report.write('\n')
-#             except Exception:
-#                 report.write('...\n')
-#         report.write('\n\n\n\n')
-#     for item in broken:
-#         report.write(item + '\n')
-
