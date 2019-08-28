@@ -1,12 +1,5 @@
 from lunch_report.parsing import Restaurant, Foods
 from datetime import datetime
-from yaml import safe_load
-
-
-with open('lunch_report/config.yml', 'rt') as f:
-    flora = safe_load(f)['flora']
-    res_links = flora['url']
-    ids = flora['id']
 
 
 class Infinity(Restaurant):

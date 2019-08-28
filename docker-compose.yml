@@ -7,6 +7,7 @@ services:
     volumes:
       - ./flask:/home/lunch/flask
       - ./lunch_report:/home/lunch/lunch_report
+      - ./config:/home/lunch/config
     ports:
       - "5000:5000"
     container_name: lunch

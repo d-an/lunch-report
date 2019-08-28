@@ -1,9 +1,9 @@
 import lunch_report.flora as p
-from collections import OrderedDict
 from requests import get
 import time
 import os
 from jinja2 import Template
+from config import cfg
 
 
 # user key:
@@ -35,7 +35,11 @@ data = dict()
 
 broken = []
 
-for (name, id) in p.ids.items():
+flora = cfg['flora']
+ids = flora['id']
+url = flora['url']
+
+for (name, id) in ids.items():
     time.sleep(1)
     try:
         if name == 'prasatka':
@@ -60,39 +64,12 @@ others = {'Infinity': p.Infinity,
 
 for name, parser in others.items():
     try:
-        data[name] = parser(p.res_links[name]).get_menu().name_price_pairs
+        data[name] = parser(url[name]).get_menu().name_price_pairs
     except Exception:
         broken.append(name)
-
-# sort the restaurants:
-poradi = ["incruenti",
-          "Happy Bean",
-          "La Farma",
-          "nominanza",
-          "Fratello",
-          "let's meat",
-          "Infinity",
-          "Roma Uno",
-          "Bila vrana",
-          "prasatka",
-          "sonora",
-          "olše",
-          "u vodoucha",
-          "u vodárny",
-          "hospůdka v ateliéru",
-          "vinohradský pivovar"]
-
-# include only those that we got in data:
-poradi = [item for item in poradi if item in data]
-
-# choose the order:
-data_ordered = OrderedDict()
-
-for item in poradi:
-    data_ordered[item] = data[item]
 
 with open('lunch_report/lunch_report.template', 'rt') as f:
     template = Template(f.read())
 
 with open('lunch_report/lunch_report.html', 'wt') as f:
-    f.write(template.render(data_ordered=data_ordered))
+    f.write(template.render(data_ordered=data))
