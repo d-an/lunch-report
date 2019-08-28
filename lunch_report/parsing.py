@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 class Restaurant:
     def __init__(self, link):
-        self.page = BeautifulSoup(get(link).content.decode('utf-8'), "lxml")
+        self.page = BeautifulSoup(get(link).content.decode('utf-8'))
 
     def get_menu(self):
         pass

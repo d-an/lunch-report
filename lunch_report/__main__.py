@@ -1,4 +1,4 @@
-import lunch_report.flora as p
+import lunch_report.smichov as smi
 from requests import get
 import time
 import os
@@ -33,11 +33,9 @@ def menu(res_id, remove_empty_prices=True):
 # menus will go into this dictionary:
 data = dict()
 
-broken = []
-
-flora = cfg['flora']
-ids = flora['id']
-url = flora['url']
+smichov = cfg['smichov']
+ids = smichov['id']
+url = smichov['url']
 
 for (name, id) in ids.items():
     time.sleep(1)
@@ -47,26 +45,18 @@ for (name, id) in ids.items():
         else:
             data[name] = menu(id, remove_empty_prices=True)
     except Exception:
-        broken.append(name)
-
+        pass
 
 # restaurants not available through zomato:
 
-others = {'Infinity': p.Infinity,
-          # 'Prasatka': p.Prasatka,
-          'Fratello': p.Fratello,
-          'Bila vrana': p.Vrana,
-          'Happy Bean': p.HappyBean,
-          'Roma Uno': p.RomaUno,
-          'La Farma': p.LaFarma
-          }
+others = {'meatcraft': smi.MeatCraft}
 
 
 for name, parser in others.items():
     try:
         data[name] = parser(url[name]).get_menu().name_price_pairs
     except Exception:
-        broken.append(name)
+        pass
 
 with open('lunch_report/lunch_report.template', 'rt') as f:
     template = Template(f.read())
