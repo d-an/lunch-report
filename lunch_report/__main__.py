@@ -49,7 +49,10 @@ for (name, id) in ids.items():
 
 # restaurants not available through zomato:
 
-others = {'meatcraft': smi.MeatCraft}
+others = {
+    'meatcraft': smi.MeatCraft,
+    'U Kristiána': smi.UKristiana
+}
 
 
 for name, parser in others.items():
