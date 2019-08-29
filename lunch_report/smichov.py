@@ -15,3 +15,8 @@ class UKristiana(Restaurant):
         menu.extend(hlavni)
         self.name_price_pairs = [(item.text.strip(), '') for item in menu]
         return self
+
+
+class Lavande(Restaurant):
+    def get_menu(self):
+        menu = self.page.find('div', class_='menus__menu-content')
